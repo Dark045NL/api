@@ -20,5 +20,5 @@ db.once("open", function () {
 });
 
 app.listen(3000, () => {
-    console.log("Server is kaya is gay");
+    console.log("Server is kaya is gayy");
 });
