@@ -21,11 +21,11 @@ db.once("open", function () {
 
 app.get("/", (req, res) => {
     let ipAddr = req.headers["x-forwarded-for"];
-    if (ipAddr){
-      const list = ipAddr.split(",");
-      ipAddr = list[list.length-1];
+    if (ipAddr) {
+        const list = ipAddr.split(",");
+        ipAddr = list[list.length - 1];
     } else {
-      ipAddr = req.connection.remoteAddress;
+        ipAddr = req.connection.remoteAddress;
     }
     res.send(ipAddr);
 });
