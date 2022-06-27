@@ -19,6 +19,18 @@ db.once("open", function () {
     console.log("Connected successfully");
 });
 
+app.get("/", (req, res) => {
+    const ipAddr = req.headers["x-forwarded-for"];
+    if (ipAddr){
+      const list = ipAddr.split(",");
+      ipAddr = list[list.length-1];
+    } else {
+      ipAddr = req.connection.remoteAddress;
+    }
+    res.send(ipAddr);
+});
+
+
 app.listen(3000, () => {
     console.log("Server is kaya is gayy");
 });
