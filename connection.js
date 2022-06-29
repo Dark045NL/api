@@ -1,16 +1,15 @@
 const { MongoClient } = require('mongodb');
 
 async function main() {
-    const uri = process.env.LOGIN;
 
     const client = new MongoClient("mongodb+srv://Dark045:BJmPmVymcsjswmSE@cluster0.mik6k.mongodb.net/?retryWrites=true&w=majority");
     try {
         await client.connect();
 
         await creategames(client, {
-            game: "fortnite",
+            game: "Warthunder",
             likes: 0,
-            dislikes: 0
+            dislike: 0
         })
 
     } catch (e) {
