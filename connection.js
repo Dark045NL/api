@@ -1,16 +1,21 @@
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 async function main() {
 
-    const client = new MongoClient("mongodb+srv://Dark045:BJmPmVymcsjswmSE@cluster0.mik6k.mongodb.net/?retryWrites=true&w=majority");
+    const uri = process.env.LOGIN;
+
+    const client = new MongoClient(uri);
     try {
         await client.connect();
 
-        await creategames(client, {
-            game: "Warthunder",
-            likes: 0,
-            dislike: 0
-        })
+        //await creategames(client, {
+        //    game: "Leauge of Legends",
+        //    likes: 14,
+        //    dislike: 141
+        //})
+
+        await findOneListingByName(client, "Rocket League");
 
     } catch (e) {
         console.error(e);
@@ -21,17 +26,31 @@ async function main() {
 
 main().catch(console.error);
 
-async function creategames(client, newgame) {
-    const result = await client.db("pollsystem").collection("games").insertOne(newgame);
+async function findOneListingByName(client, name) {
+    const result = await client.db("pollsystem").collection("games").findOne({ game: name });
 
-    console.log(`Inserted game with the following id: ${result.insertedId}`);
+    if (result) {
+        console.log(`Found game with the following name: ${name}`);
+        console.log(result);
+    } else {
+        console.log(`No game found with the name: ${name}`);
+    }
 }
 
-async function listDatabases(client) {
-    const databasesList = await client.db().admin().listDatabases();
+//async function creategames(client, newgame) {
+//    const result = await client.db("pollsystem").collection("games").insertOne(newgame);
+//
+//    console.log(`Inserted game with the following id: ${result.insertedId}`);
+//}
 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => {
-        console.log(` - ${db.name}`);
-    })
-}
+//async function listDatabases(client) {
+//    const databasesList = await client.db().admin().listDatabases();
+//
+//    console.log("Databases:");
+//    databasesList.databases.forEach(db => {
+//        console.log(` - ${db.name}`);
+//    })
+//}
+
+
+//object.onload = function(){myScript};
