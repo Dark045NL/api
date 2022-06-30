@@ -36,6 +36,7 @@ async function updateListingByName(client, name, likes, dislikes, voterIps) {
     } else {
         console.log(`No game found with the name: ${name}`);
     }
+    return result;
 }
 
 async function findOneListingByName(client, name) {
@@ -47,6 +48,7 @@ async function findOneListingByName(client, name) {
    } else {
        console.log(`No game found with the name: ${name}`);
    }
+   return result;
 }
 
 async function createGames(client, newgame) {

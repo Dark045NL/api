@@ -46,7 +46,8 @@ app.post("/games", async (req, res) => {
         try {
             const game = await createGames(req.db, { name: req.body.name, likes: 0, dislikes: 0, voterIps: [] });
             res.json(game);
-        } catch {
+        } catch (e) {
+            console.error(e);
             res.sendStatus(400);
         }
 
@@ -56,10 +57,10 @@ app.post("/games", async (req, res) => {
 });
 
 //update game votes
-app.put("/game/:name", async (req, res) => {
-    if (req.body && req.body.likes && req.body.dislikes) {
+app.put("/games", async (req, res) => {
+    if (req.body && req.body.name && req.body.likes && req.body.dislikes) {
         try {
-            const checkIp = await findOneListingByName(req.db, req.params.name);
+            const checkIp = await findOneListingByName(req.db, req.body.name);
             let ipAddr = req.headers["x-forwarded-for"];
             if (ipAddr) {
                 const list = ipAddr.split(",");
@@ -67,15 +68,15 @@ app.put("/game/:name", async (req, res) => {
             } else {
                 ipAddr = req.connection.remoteAddress;
             }
-
             if (checkIp.voterIps.includes(ipAddr)) {
                 res.sendStatus(401);
                 return;
             } else {
-                const game = await updateGame(req.db, req.params.name, req.body.likes, req.body.dislikes, [...checkIp.voterIps, ipAddr]);
+                const game = await updateListingByName(req.db, req.body.name, req.body.likes, req.body.dislikes, [...checkIp.voterIps, ipAddr]);
                 res.json(game);
             }
-        } catch {
+        } catch(e) {
+            console.error(e);
             res.sendStatus(400);
         }
     }
