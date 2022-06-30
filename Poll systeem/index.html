@@ -69,6 +69,7 @@
 
 
 <script type="text/javascript">
+	// Client for the API requests
 	const httpClient = axios.create({
 		baseURL: 'https://api-lanparty.herokuapp.com/',
 		headers: {
@@ -76,7 +77,7 @@
 		},
 	});
 
-
+	//TODO: notification for not allowed to vote anymore
 
 	let rllikebtn = document.querySelector('#rllikebtn');
 	let rldislikebtn = document.querySelector('#rldislikebtn');
@@ -85,13 +86,31 @@
 	let input2 = document.querySelector('#rlinput2');
 
 	rllikebtn.addEventListener('click',()=>{
-		input1.value = parseInt(rlinput1.value) + 1;
-		input1.style.color = "#12ff00";
+		httpClient.put('/games', {
+			name:'Rocket League',
+			likes: parseInt(input1.value)+1,
+			dislikes: input2.value
+		}).then((response)=>{
+			if(response.status==200) {
+				input1.value = parseInt(rlinput1.value) + 1;
+				input1.style.color = "#12ff00";
+				//later remove event listener all together and grey out the buttons
+			}
+		});
 	})
 
 	rldislikebtn.addEventListener('click',()=>{
-		input2.value = parseInt(rlinput2.value) + 1;
-		input2.style.color = "#ff0000";
+		httpClient.put('/games', {
+			name:'Rocket League',
+			likes: input1.value,
+			dislikes: parseInt(input2.value)+1
+		}).then((response)=>{
+			if(response.status==200) {
+				input2.value = parseInt(rlinput2.value) + 1;
+				input2.style.color = "#ff0000";
+			}
+		});
+
 	})
 
 	let r6likebtn = document.querySelector('#r6likebtn');
@@ -101,13 +120,29 @@
 	let input4 = document.querySelector('#r6input2');
 
 	r6likebtn.addEventListener('click',()=>{
-		input3.value = parseInt(r6input1.value) + 1;
-		input3.style.color = "#12ff00";
+		httpClient.put('/games', {
+			name:'Rainbow Six Siege',
+			likes: parseInt(input3.value)+1,
+			dislikes: input4.value
+		}).then((response)=>{
+			if(response.status==200) {
+				input3.value = parseInt(r6input1.value) + 1;
+				input3.style.color = "#12ff00";
+			}
+		});
 	})
 
 	r6dislikebtn.addEventListener('click',()=>{
-		input4.value = parseInt(r6input2.value) + 1;
-		input4.style.color = "#ff0000";
+		httpClient.put('/games', {
+			name:'Rainbow Six Siege',
+			likes: parseInt(input3.value)+1,
+			dislikes: input4.value
+		}).then((response)=>{
+			if(response.status==200) {
+				input4.value = parseInt(r6input2.value) + 1;
+				input4.style.color = "#ff0000";
+			}
+		});
 	})
 
 	let valolikebtn = document.querySelector('#valolikebtn');
@@ -117,13 +152,29 @@
 	let input6 = document.querySelector('#valoinput2');
 
 	valolikebtn.addEventListener('click',()=>{
-		input5.value = parseInt(valoinput1.value) + 1;
-		input5.style.color = "#12ff00";
+		httpClient.put('/games', {
+			name:'Valorant',
+			likes: parseInt(input5.value)+1,
+			dislikes: input6.value
+		}).then((response)=>{
+			if(response.status==200) {
+				input5.value = parseInt(valoinput1.value) + 1;
+				input5.style.color = "#12ff00";
+			}
+		});
 	})
 
 	valodislikebtn.addEventListener('click',()=>{
-		input6.value = parseInt(valoinput2.value) + 1;
-		input6.style.color = "#ff0000";
+		httpClient.put('/games', {
+			name:'Valorant',
+			likes: parseInt(input5.value)+1,
+			dislikes: input6.value
+		}).then((response)=>{
+			if(response.status==200) {
+				input6.value = parseInt(valoinput2.value) + 1;
+				input6.style.color = "#ff0000";
+			}
+		});
 	})
 
 	httpClient.get('/games').then((response) => {
