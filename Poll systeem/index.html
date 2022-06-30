@@ -65,7 +65,12 @@
 	</div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+
 <script type="text/javascript">
+	
+
 	let rllikebtn = document.querySelector('#rllikebtn');
 	let rldislikebtn = document.querySelector('#rldislikebtn');
 
@@ -112,5 +117,28 @@
 	valodislikebtn.addEventListener('click',()=>{
 		input6.value = parseInt(valoinput2.value) + 1;
 		input6.style.color = "#ff0000";
+	})
+
+	axios.get('https://api-lanparty.herokuapp.com/games').then((response) => {
+		const { data } = response;
+
+		if (data.length > 0) {
+			data.forEach((game) => {
+				if (game.name == "Rocket League") {
+					input1.value = game.likes;
+					input2.value = game.dislikes;
+				}
+				if (game.name == "Rainbow Six Siege") {
+					input3.value = game.likes;
+					input4.value = game.dislikes;
+				}
+				if (game.name == "Valorant") {
+					input5.value = game.likes;
+					input6.value = game.dislikes;
+				}
+			});
+		}
+	}).catch(err=>{
+		console.log(err);
 	})
 </script>

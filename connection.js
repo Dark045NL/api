@@ -29,7 +29,7 @@ async function connection() {
 //connection().catch(console.error);
 
 async function updateListingByName(client, name, likes, dislikes, voterIps) {
-    const result = await client.db("pollsystem").collection("games").updateOne({ game: name }, { $set: { likes: likes, dislikes: dislikes, voterIps: voterIps } });
+    const result = await client.db("pollsystem").collection("games").updateOne({ name: name }, { $set: { likes: likes, dislikes: dislikes, voterIps: voterIps } });
 
     if (result) {
         console.log(`Updated game with the following name: ${name}`);
@@ -40,7 +40,7 @@ async function updateListingByName(client, name, likes, dislikes, voterIps) {
 }
 
 async function findOneListingByName(client, name) {
-   const result = await client.db("pollsystem").collection("games").findOne({ game: name });
+   const result = await client.db("pollsystem").collection("games").findOne({ name: name });
 
    if (result) {
        console.log(`Found game with the following name: ${name}`);
