@@ -12,12 +12,25 @@ body{
     background: #000;
 }
 .container{
-    border: 3px solid #303030;
     padding: 20px;
     width: 350px;
     text-align: center;
     border-radius: 4px;
     position: relative;
+    
+    background: #808080;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 
+    0 0 4px #fff,
+    0 0 11px rgb(101, 101, 101),
+    0 0 19px rgb(101, 101, 101),
+    0 0 3px #B76CFD,
+    0 0 4px #B76CFD,
+    0 0 6px #B76CFD,
+    0 0 8px #B76CFD,
+    0 0 10px #B76CFD;
 }
 h2{
     color: #fff;
@@ -60,4 +73,16 @@ button{
 button:active{
     color: #004eff;
     transform: scale(1.2);
+}
+.gamename h2{
+    color: #fff;
+    text-shadow:
+          0 0 4px #fff,
+          0 0 11px rgb(101, 101, 101),
+          0 0 19px rgb(101, 101, 101),
+          0 0 3px #4D4DFF,
+          0 0 4px #4D4DFF,
+          0 0 6px #4D4DFF,
+          0 0 8px #4D4DFF,
+          0 0 10px #4D4DFF;
 }
