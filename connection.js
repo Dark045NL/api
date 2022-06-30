@@ -15,7 +15,9 @@ async function main() {
         //    dislike: 141
         //})
 
-        await findOneListingByName(client, "Rocket League");
+        //await findOneListingByName(client, "Rocket League");
+
+        await updateListingByName(client, "Fortnite", { likes: 70 });
 
     } catch (e) {
         console.error(e);
@@ -26,16 +28,26 @@ async function main() {
 
 main().catch(console.error);
 
-async function findOneListingByName(client, name) {
-    const result = await client.db("pollsystem").collection("games").findOne({ game: name });
+async function updateListingByName(client, name, likes, dislikes) {
+    const result = await client.db("pollsystem").collection("games").updateOne({ game: name }, { $set: { likes: likes } });
 
     if (result) {
-        console.log(`Found game with the following name: ${name}`);
-        console.log(result);
+        console.log(`Updated game with the following name: ${name}`);
     } else {
         console.log(`No game found with the name: ${name}`);
     }
 }
+
+//async function findOneListingByName(client, name) {
+//    const result = await client.db("pollsystem").collection("games").findOne({ game: name });
+//
+//    if (result) {
+//        console.log(`Found game with the following name: ${name}`);
+//        console.log(result);
+//    } else {
+//        console.log(`No game found with the name: ${name}`);
+//    }
+//}
 
 //async function creategames(client, newgame) {
 //    const result = await client.db("pollsystem").collection("games").insertOne(newgame);
