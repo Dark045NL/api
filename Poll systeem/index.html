@@ -69,7 +69,14 @@
 
 
 <script type="text/javascript">
-	
+	const httpClient = axios.create({
+		baseURL: 'https://api-lanparty.herokuapp.com/',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+
 
 	let rllikebtn = document.querySelector('#rllikebtn');
 	let rldislikebtn = document.querySelector('#rldislikebtn');
@@ -119,7 +126,7 @@
 		input6.style.color = "#ff0000";
 	})
 
-	axios.get('https://api-lanparty.herokuapp.com/games').then((response) => {
+	httpClient.get('/games').then((response) => {
 		const { data } = response;
 
 		if (data.length > 0) {

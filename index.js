@@ -5,7 +5,7 @@ const cors = require('cors');
 const { connection, createGames, findAllGames, updateListingByName, findOneListingByName } = require('./connection');
 
 var corsOptions = {
-    origin: false,
+    origin: '*',
   };
 const app = express();
 app.use(express.json());
@@ -38,7 +38,6 @@ app.get("/games", async (req, res) => {
         const games = await findAllGames(req.db);
         res.json(games);
     } catch (e) {
-        console.log(client)
         console.error(e);
         res.sendStatus(400);
     }
