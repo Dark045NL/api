@@ -63,6 +63,3 @@ async function updateListingByName(client, name, likes, dislikes) {
 //        console.log(` - ${db.name}`);
 //    })
 //}
-
-
-//object.onload = function(){myScript};
