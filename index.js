@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 
-const { connection, createGames, findAllGames,updateListingByName,findOneListingByName } = require('./connection');
+const { connection, createGames, findAllGames, updateListingByName, findOneListingByName } = require('./connection');
 
 const app = express();
 app.use(express.json());
@@ -9,9 +9,9 @@ app.use(express.json());
 let client;
 (async () => {
     client = await connection();
-  })();
+})();
 
-app.use(async (req,res,next) => {
+app.use(async (req, res, next) => {
     req.db = client;
     next();
 });
@@ -44,12 +44,12 @@ app.post("/games", async (req, res) => {
     //put here restrictions about name
     if (req.body && req.body.name) {
         try {
-            const game = await createGames(req.db, {name:req.body.name, likes:0, dislikes:0, voterIps:[]});
+            const game = await createGames(req.db, { name: req.body.name, likes: 0, dislikes: 0, voterIps: [] });
             res.json(game);
         } catch {
             res.sendStatus(400);
         }
-       
+
     } else {
         res.sendStatus(400);
     }
@@ -83,5 +83,5 @@ app.put("/game/:name", async (req, res) => {
 
 
 app.listen(process.env.PORT, () => {
-    console.log("Server kaya is gayy");
+    console.log("Server is running");
 });
